@@ -1,4 +1,4 @@
-version: '3.8'
+name: "blnk"
 
 services:
   server:
@@ -6,11 +6,10 @@ services:
     restart: on-failure
     ports:
       - "5001:5001"
-      - "80:80"
-      - "443:443"
     depends_on:
       - redis
       - postgres
+      - migration
     volumes:
       - ./blnk.json:/blnk.json
       - ./ui:/ui
@@ -22,18 +21,19 @@ services:
   worker:
     image: jerryenebeli/blnk:v0.5.0
     restart: on-failure
-    entrypoint: [ "./blnk", "workers"]
+    entrypoint: ["./blnk", "workers"]
     depends_on:
       - redis
       - postgres
+      - migration
     volumes:
       - ./blnk.json:/blnk.json
     environment:
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://jaeger:4317"
 
   migration:
-    build: .
-    entrypoint: [ "./blnk", "migrate","up" ]
+    image: jerryenebeli/blnk:v0.5.0
+    entrypoint: ["./blnk", "migrate", "up"]
     depends_on:
       - postgres
     volumes:
@@ -43,13 +43,9 @@ services:
 
   redis:
     image: redis:7.2.4
-    ports:
-      - "6379:6379"
 
   postgres:
     image: postgres:latest
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -57,11 +53,10 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
-
 
 volumes:
   pg_data:
