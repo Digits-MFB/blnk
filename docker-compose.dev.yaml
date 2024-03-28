@@ -1,4 +1,4 @@
-version: '3.8'
+name: "blnk"
 
 services:
   server:
@@ -6,8 +6,6 @@ services:
     restart: on-failure
     ports:
       - "5001:5001"
-      - "80:80"
-      - "443:443"
     depends_on:
       - redis
       - postgres
@@ -22,7 +20,7 @@ services:
   worker:
     build: .
     restart: on-failure
-    entrypoint: [ "./blnk", "workers"]
+    entrypoint: ["./blnk", "workers"]
     depends_on:
       - redis
       - postgres
@@ -33,7 +31,7 @@ services:
 
   migration:
     build: .
-    entrypoint: [ "./blnk", "migrate","up" ]
+    entrypoint: ["./blnk", "migrate", "up"]
     depends_on:
       - postgres
     volumes:
@@ -57,11 +55,10 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
-
 
 volumes:
   pg_data:
