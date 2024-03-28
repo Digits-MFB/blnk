@@ -18,7 +18,7 @@ CREATE TABLE blnk.matching_rules
     rule_id  TEXT      NOT NULL UNIQUE,
     rule_type  VARCHAR(255),
     parameters JSONB,
-    all_match  BOOLEAN DEFAULT 
+    all_match  BOOLEAN DEFAULT FALSE
 );
 
 
