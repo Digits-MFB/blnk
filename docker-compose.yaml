@@ -2,7 +2,7 @@ name: "blnk"
 
 services:
   server:
-    image: jerryenebeli/blnk:v0.5.0
+    image: ghcr.io/digits-mfb/blnk
     restart: on-failure
     ports:
       - "5001:5001"
@@ -19,7 +19,7 @@ services:
       - OTEL_EXPORTER_OTLP_INSECURE=true
 
   worker:
-    image: jerryenebeli/blnk:v0.5.0
+    image: ghcr.io/digits-mfb/blnk
     restart: on-failure
     entrypoint: ["./blnk", "workers"]
     depends_on:
@@ -32,7 +32,7 @@ services:
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://jaeger:4317"
 
   migration:
-    image: jerryenebeli/blnk:v0.5.0
+    image: ghcr.io/digits-mfb/blnk
     entrypoint: ["./blnk", "migrate", "up"]
     depends_on:
       - postgres

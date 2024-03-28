@@ -2,10 +2,10 @@
   "project_name": "Blnk",
   "time_zone": "UTC",
   "data_source": {
-    "dns": "postgres://postgres:password@postgres:5433/blnk?sslmode=disable"
+    "dns": "postgres://postgres:password@postgres:5432/blnk?sslmode=disable"
   },
   "redis": {
-    "dns": "redis:6380"
+    "dns": "redis:6379"
   },
   "account_number_generation": {
     "enable_auto_generation": true,

@@ -17,7 +17,7 @@ CREATE TABLE blnk.matching_rules
     id         SERIAL PRIMARY KEY,
     rule_id  TEXT      NOT NULL UNIQUE,
     rule_type  VARCHAR(255),
-    parameters JSONB
+    parameters JSONB,
     all_match  BOOLEAN DEFAULT 
 );
 
