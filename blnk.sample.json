@@ -1,0 +1,34 @@
+{
+  "project_name": "Blnk",
+  "time_zone": "UTC",
+  "data_source": {
+    "dns": "postgres://postgres:password@postgres:5433/blnk?sslmode=disable"
+  },
+  "redis": {
+    "dns": "redis:6380"
+  },
+  "account_number_generation": {
+    "enable_auto_generation": true,
+    "http_service": {
+      "url": "http://your-service/mocked-account",
+      "headers": {
+        "Authorization": "Bearer your_auth_token"
+      }
+    }
+  },
+  "server": {
+    "domain": "yourdomain.com",
+    "ssl": false,
+    "ssl_email": "your@email.com",
+    "port": "5001"
+  },
+  "notification": {
+    "slack": {
+      "webhook_url": "http://your-slack-webhook.com"
+    },
+    "webhook": {
+      "url": "http://your-webhook-url.com",
+      "headers": {}
+    }
+  }
+}
