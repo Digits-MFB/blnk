@@ -24,6 +24,12 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -32,4 +38,4 @@ jobs:
           tags: |
             ghcr.io/digits-mfb/blnk:latest
             ghcr.io/digits-mfb/blnk:${{ github.ref_name }}
-          labels: ${{ steps.meta.outputs.labels }}
+          builder: ${{ steps.buildx.name }}
